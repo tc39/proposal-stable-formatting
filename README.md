@@ -1,6 +1,6 @@
-# An Explicit Null Locale
+# Stable Formatting
 
-A TC-39 proposal to define the behaviour and properties of the `zxx` null locale.
+A TC-39 proposal to provide well-defined and powerful formatting methods.
 
 **Stage:** 0
 
@@ -26,6 +26,11 @@ For example, the top StackOverflow suggestion for how to format a date using ISO
 is to [use Swedish as the locale](https://stackoverflow.com/a/58633686).
 
 ## Possible Solution
+
+> [!NOTE]
+> It's entirely possible for a solution to this to be found in ECMA-262 outside `Intl`;
+> the following is one possible approach that extends the `Intl` formatters
+> to support non-internationalization usage for the desired formatting.
 
 We should define in ECMA-402 the behaviour of each of the formatters for the `zxx` null locale.
 This locale identifier (which stands for for "no linguistic content; not applicable")
