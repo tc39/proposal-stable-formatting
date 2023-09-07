@@ -1,6 +1,6 @@
 # Stable Formatting
 
-A TC-39 proposal to provide well-defined and powerful formatting methods.
+A TC-39 proposal to bring stable Intl-inspired formatting options to ECMAScript.
 
 **Stage:** 0
 
