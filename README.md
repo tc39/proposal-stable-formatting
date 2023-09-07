@@ -17,7 +17,9 @@ string formatters having an exact output shape,
 in particular with date formatting using the `en-US` locale.
 Recent examples are available from
 [June 2022](https://github.com/WebKit/WebKit/commit/1dc01f753d89a85ee19df8e8bd75f4aece80c594) and
-[November 2022](https://bugs.chromium.org/p/v8/issues/detail?id=13494).
+[November 2022](https://bugs.chromium.org/p/v8/issues/detail?id=13494). Learn more in
+[this presentation](https://docs.google.com/presentation/d/1KuIOSDQRliqCT3x3WX9Bg9H3hndfhAcH2G0aNoBKq18/edit#slide=id.p) from
+[June 2023 TC39-TG2](https://github.com/tc39/ecma402/blob/master/meetings/notes-2023-06-01.md#how-to-prevent-misuse-of-localized-strings).
 
 Separately, sometimes it is desirable to format values for an international audience,
 or for other reasons use formats that are not tied to a specific locale.
