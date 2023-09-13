@@ -27,25 +27,28 @@ The `Intl` formatters do not currently support this well.
 For example, the top StackOverflow suggestion for how to format a date using ISO-8601 formatting
 is to [use Swedish as the locale](https://stackoverflow.com/a/58633686).
 
-## Possible Solution
+## Possible Solutions
 
-> [!NOTE]
-> It's entirely possible for a solution to this to be found in ECMA-262 outside `Intl`;
-> the following is one possible approach that extends the `Intl` formatters
-> to support non-internationalization usage for the desired formatting.
+It's entirely possible for a solution to this to be found in ECMA-262 outside `Intl`.
+Two possible approaches are presented:
+one that extends the `Intl` formatters
+to support non-internationalization usage for the desired formatting,
+and another that's a purely ECMA-262 solution.
 
-We should define in ECMA-402 the behaviour of each of the formatters for the `zxx` null locale.
+### Add a new "null" locale
+
+Define in ECMA-402 the behaviour of each of the formatters for the `zxx` null locale.
 This locale identifier (which stands for for "no linguistic content; not applicable")
 is a valid BCP 47 primary language tag defined in ISO 639.2
 but its behaviour is not otherwise well defined.
 
 For ease of use,
-Intl formatters should accept `null` as an alias for the canonical `"zxx"` identifier.
+Intl formatters would accept `null` as an alias for the canonical `"zxx"` identifier.
 
-Wherever possible, the `zxx` locale should use well-defined standardized behaviour,
+Wherever possible, the `zxx` locale would use well-defined standardized behaviour,
 such as using ISO-8601 for date formatting.
 
-The "localized" output for `zxx` should avoid including actually localized text in its output,
+The "localized" output for `zxx` would avoid including actually localized text in its output,
 such as fully written-out unit names or the names of months.
 
 ```js
@@ -55,6 +58,45 @@ new Intl.DateTimeFormat('zxx').format(new Date()) === '2023-09-01'
 
 (12345.67).toLocaleString(null) === '12345.67'
 ```
+
+### Add options to ECMA-262 formatters
+
+Change
+
+- `Date.prototype.toString()` [21.4.4.41](https://tc39.es/ecma262/#sec-date.prototype.tostring)
+- `Number.prototype.toString([radix])` [21.1.3.6](https://tc39.es/ecma262/#sec-number.prototype.tostring)
+- `BigInt.prototype.toString([radix])` [21.2.3.3](https://tc39.es/ecma262/#sec-bigint.prototype.tostring)
+
+to include a new optional `options` argument:
+
+- `Date.prototype.toString([options])`
+- `Number.prototype.toString([radix] [, options])`
+- `BigInt.prototype.toString([radix] [, options])`
+
+and specify how these three functions should read the options
+and create the formatted result string differently
+
+The options read and respected by `Date.prototype.toString`
+will be only a subset of what the `toLocaleString` method accepts.
+For example, it will NOT read
+"localeMatcher", "calendar", "numberingSystem", "hour12",
+"dateStyle", and "timeStyle",
+but will read "hourCycle", "timeZone".
+The options listed in [Table 7](https://tc39.es/ecma402/#table-datetimeformat-components)
+could be decided by the proposal to include for reading or not.
+
+The options read and respected by `Number.prototype.toString` and `BigInt.prototype.toString`
+will be only a subset of what the `toLocaleString` methods accept.
+For example, they will NOT read
+"localeMatcher", "numberingSystem", "style",
+"currency", "currencyDisplay", "currencySign", "unit", "unitDisplay",
+but will read other options listed in [Table 12](https://tc39.es/ecma402/#table-numberformat-resolvedoptions-properties).
+
+The Number and BigInt methods could also allow for the options argument
+to replace the `radix` argument, determining behaviour based on that argument's type.
+
+This approach would not include any equivalent of the `Intl` formatters'
+`formatToParts` methods.
 
 ## Alternatives
 
