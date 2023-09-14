@@ -100,6 +100,8 @@ This approach would not include any equivalent of the `Intl` formatters'
 
 ## Alternatives
 
+### Add an "undetermined" locale
+
 A prior version of this proposal used the "undetermined" `und` locale instead of `zxx`.
 This is also a valid ISO 639.2 language identifier,
 but it is used as the canonical root locale identifier in CLDR,
@@ -108,6 +110,12 @@ which has well-defined behaviour e.g. in
 
 The `und` locale is also currently supported by Safari as an alias for `en-US-u-va-posix`,
 and it's recognised by Chrome and Node.js for `Intl.Locale`.
+
+### Add new ECMA-262 formatting methods
+
+Rather than modifying the existing `toString` methods of Date, Number and BigInt,
+new methods `toFormattedString` could be added to each of these,
+with an options argument as defined above.
 
 ## Prior Art
 
