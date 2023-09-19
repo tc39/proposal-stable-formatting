@@ -4,6 +4,8 @@ A TC39 proposal to bring stable Intl-inspired formatting options to ECMAScript.
 
 **Stage:** 0
 
+**Presentation**: [Slides](https://docs.google.com/presentation/d/1p1Xgywv1qfY54gnfHUM6PXQafqgf7wY98znxbolmP2c/edit?usp=sharing) for Stage 1 acceptance at September 2023 TC39 meeting
+
 ## Motivation
 
 The `Intl` formatters and other interfaces defined by ECMA-402
