@@ -29,15 +29,7 @@ The `Intl` formatters do not currently support this well.
 For example, the top StackOverflow suggestion for how to format a date using ISO-8601 formatting
 is to [use Swedish as the locale](https://stackoverflow.com/a/58633686).
 
-## Possible Solutions
-
-It's entirely possible for a solution to this to be found in ECMA-262 outside `Intl`.
-Two possible approaches are presented:
-one that extends the `Intl` formatters
-to support non-internationalization usage for the desired formatting,
-and another that's a purely ECMA-262 solution.
-
-### Add a new "null" locale
+## Proposed Solution
 
 Define in ECMA-402 the behaviour of each of the formatters for the `zxx` null locale.
 This locale identifier (which stands for for "no linguistic content; not applicable")
@@ -60,6 +52,8 @@ new Intl.DateTimeFormat('zxx').format(new Date()) === '2023-09-01'
 
 (12345.67).toLocaleString(null) === '12345.67'
 ```
+
+## Alternatives
 
 ### Add options to ECMA-262 formatters
 
@@ -99,8 +93,6 @@ to replace the `radix` argument, determining behaviour based on that argument's 
 
 This approach would not include any equivalent of the `Intl` formatters'
 `formatToParts` methods.
-
-## Alternatives
 
 ### Add an "undetermined" locale
 
