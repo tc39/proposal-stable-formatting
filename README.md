@@ -53,6 +53,168 @@ new Intl.DateTimeFormat('zxx').format(new Date()) === '2023-09-01'
 (12345.67).toLocaleString(null) === '12345.67'
 ```
 
+### Intl.Collator
+
+When the `zxx` locale is used, [CLDR root collation](https://www.unicode.org/reports/tr35/tr35-collation.html#Root_Collation)
+is used, with unified ideographs ordered either by block and then by code point, or by radical-stroke
+(See [issue #13](https://github.com/tc39/proposal-stable-formatting/issues/13)).
+
+### Intl.DateTimeFormat
+
+When the `zxx` locale is used, the formatted output matches that used by Temporal.
+To achieve that, the following default option values are applied:
+
+```js
+{
+  calendar: 'gregory',
+  numberingSystem: 'latn',
+  hour12: false,
+  hourCycle: 'h23'
+}
+```
+
+In the formatted output, an RFC 9557 serialization of the input value is used when appropriate,
+e.g. `2006-01-02`, `15:04:05`, `2006-01-02T15:04:05.999+01:00[Europe/Paris]`.
+Only numerical representations of time and date values are used, as in:
+
+```js
+const dtf = new Intl.DateTimeFormat(null, { month: "long" });
+dtf.format(new Date("2006-01-02")) === "1";
+```
+
+The `hour12` and `hourCycle` options are validated but ignored,
+and formatting is always done as if `hour12: false` was set.
+
+The `dayPeriod`, `weekday`, `era` options are validated but ignored.
+
+The `month` option values `'long'` and `'short'` are considered equivalent to its `'2-digit'` value,
+and `'narrow'` is considered equivalent to its `'numeric'` value.
+
+If the `timeZoneName` option has a valid value,
+the canonical IANA time zone identifier is used for the timezone, irrespective of the option value.
+
+If the `dateStyle` option has a valid value,
+the formatted output always starts with a date formatted like `2006-01-02`.
+
+If the `timeStyle` option has a valid value, the formatted output always ends with a time formatted as follows:
+
+- `'full'` or `'long'`: `15:04:05+01:00[Europe/Paris]`
+- `'medium'`: `15:04:05`
+- `'short'`: `15:04`
+
+If both `dateStyle` and `timeStyle` options are set, the formatted output consists of
+the formatted date, followed by `T` (U+0054), followed by the formatted time.
+
+### Intl.DisplayNames
+
+This API should not support the `zxx` locale.
+
+### Intl.DurationFormat
+
+When the `zxx` locale is used, the formatted duration should follow SI units as closely as possible.
+In the locale options, `'latn'` is used as default value for the `numberingSystem` option.
+
+For all the options that support it, the value `'long'` results in the same formatting as when using the value `'short'`.
+
+The output for parts formatted as `'short'` consist of
+the numerical value, followed by a space (U+0020), followed by the duration identifier.
+
+The output for parts formatted as `'narrow'` consist of
+the numerical value, followed by the duration identifier.
+
+The formatted parts are concatenated together with a separator determined by the `style` option:
+
+- `'long'` or `'short'`: a comma followed by a space `, ` (U+002C U+0020)
+- `'narrow'`: a space (U+0020)
+- `'digital'`: a colon `:` (U+003A)
+
+The duration identifiers are as follows:
+
+- years: TBD
+- months: TBD
+- weeks: TBD
+- days: `d` (U+0064)
+- hours: `h` (U+0068)
+- minutes: `min` (U+006D U+0069 U+006E)
+- seconds: `s` (U+0073)
+- milliseconds: `ms` (U+006D U+0073)
+- microseconds: `μs` (U+03BC U+0073)
+- nanoseconds: `ns` (U+006E U+0073)
+
+### Intl.ListFormat
+
+When the `zxx` locale is used, the `type` option value is validated but ignored,
+and the output is determined by the `style` option:
+
+- `'long'` or `'short'`: list items are separated by a comma followed by a space `, ` (U+002C U+0020)
+- `'narrow'`: list items are separated by a space (U+0020)
+
+### Intl.Locale
+
+TBD
+
+### Intl.NumberFormat
+
+When the `zxx` locale is used, the numerical part of the formatted output
+alwas satisfies the [_StrNumericLiteral_](https://tc39.es/ecma262/#prod-StrNumericLiteral) grammar symbol.
+In the locale options, `'latn'` is used as default value for the `numberingSystem` option.
+
+When used together with the `style: 'currency'` option,
+the output includes the numerical value, followed by a space (U+0020), followed by the ISO currency code.
+The `currencyDisplay` option value is validated but ignored.
+If the [intl-currency-display-choices](https://github.com/tc39/proposal-intl-currency-display-choices) proposal
+is accepted, using the `currencyDisplay: 'never'` option leaves out all but the numerical value from the output.
+
+When used together with the `style: 'percent'` option,
+the output includes the numerical value followed by the U+0025 Percent Sign character.
+
+When used together with the `style: 'unit'` option,
+the output is determined by the `unitDisplay` option:
+
+- `'short'`: numerical value, followed by a space (U+0020), followed by the short unit identifier
+- `'narrow'`: numerical value, followed by the short unit identifier
+- `'long'`: numerical value, followed by a space (U+0020), followed by the long unit identifier
+
+The "long unit identifier" is the `unit` option value.
+The "short unit identifier" is a locale-independent string derived from the `unit` option value
+which will need to be explicitly defined from SI units and otherwise,
+with e.g. `l` for `litre` and `TB` for `terabyte`.
+Compound units are formed by replacing the `-per-` with a solidus `/` (U+002F)
+and by mapping the unit parts separately to their short unit identifiers.
+
+When used together with the `notation: 'compact'` option,
+the output includes the numerical value followed by an appropriate SI prefix:
+
+- 10<sup>12</sup>: `T` (U+0054)
+- 10<sup>9</sup>: `G` (U+0047)
+- 10<sup>6</sup>: `M` (U+004D)
+- 10<sup>3</sup>: `k` (U+006B)
+- 10<sup>-3</sup>: `m` (U+006D)
+- 10<sup>-6</sup>: `μ` (U+03BC)
+- 10<sup>-9</sup>: `n` (U+006E)
+- 10<sup>-12</sup>: `p` (U+0070)
+
+The `compactDisplay` option is validated but ignored.
+
+The `useGrouping` option is validated but ignored,
+and grouping separators are never included in the output.
+
+### Intl.PluralRules
+
+When the `zxx` locale is used with otherwise valid options,
+all calls to `select(number)` and `selectRange(startRange, endRange)`
+will return `'other'`.
+
+### Intl.RelativeTimeFormat
+
+This API should not support the `zxx` locale.
+
+### Intl.Segmenter
+
+When the `zxx` locale is used, [UAX #29](https://unicode.org/reports/tr29/) segmentation
+with extended grapheme clusters is used, without tailorings
+(See [issue #13](https://github.com/tc39/proposal-stable-formatting/issues/13)).
+
 ## Alternatives
 
 ### Add options to ECMA-262 formatters
