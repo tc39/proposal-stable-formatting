@@ -107,39 +107,17 @@ the formatted date, followed by `T` (U+0054), followed by the formatted time.
 
 ### Intl.DisplayNames
 
-This API should not support the `zxx` locale.
+When the `zxx` locale is used with valid formatting options,
+calling the `of(code)` method with structurally valid input
+will behave as if no matching display name is available,
+and return either the requested code or `undefined`,
+depending on the `fallback` option.
 
 ### Intl.DurationFormat
 
-When the `zxx` locale is used, the formatted duration should follow SI units as closely as possible.
-In the locale options, `'latn'` is used as default value for the `numberingSystem` option.
-
-For all the options that support it, the value `'long'` results in the same formatting as when using the value `'short'`.
-
-The output for parts formatted as `'short'` consist of
-the numerical value, followed by a space (U+0020), followed by the duration identifier.
-
-The output for parts formatted as `'narrow'` consist of
-the numerical value, followed by the duration identifier.
-
-The formatted parts are concatenated together with a separator determined by the `style` option:
-
-- `'long'` or `'short'`: a comma followed by a space `, ` (U+002C U+0020)
-- `'narrow'`: a space (U+0020)
-- `'digital'`: a colon `:` (U+003A)
-
-The duration identifiers are as follows:
-
-- years: TBD
-- months: TBD
-- weeks: TBD
-- days: `d` (U+0064)
-- hours: `h` (U+0068)
-- minutes: `min` (U+006D U+0069 U+006E)
-- seconds: `s` (U+0073)
-- milliseconds: `ms` (U+006D U+0073)
-- microseconds: `μs` (U+03BC U+0073)
-- nanoseconds: `ns` (U+006E U+0073)
+When the `zxx` locale is used with valid formatting options,
+the formatted duration is an ISO 8601-2 duration,
+such as `P2Y` (2 years), `PT2H30M` (2 hours and 30 minutes), or `P5DT0.001S` (5 days and 1 millisecond).
 
 ### Intl.ListFormat
 
@@ -156,7 +134,7 @@ TBD
 ### Intl.NumberFormat
 
 When the `zxx` locale is used, the numerical part of the formatted output
-alwas satisfies the [_StrNumericLiteral_](https://tc39.es/ecma262/#prod-StrNumericLiteral) grammar symbol.
+always satisfies the [_StrNumericLiteral_](https://tc39.es/ecma262/#prod-StrNumericLiteral) grammar symbol.
 In the locale options, `'latn'` is used as default value for the `numberingSystem` option.
 
 When used together with the `style: 'currency'` option,
@@ -201,19 +179,34 @@ and grouping separators are never included in the output.
 
 ### Intl.PluralRules
 
-When the `zxx` locale is used with otherwise valid options,
-all calls to `select(number)` and `selectRange(startRange, endRange)`
-will return `'other'`.
+When the `zxx` locale is used with valid formatting options,
+calling the `select(number)` and `selectRange(startRange, endRange)`
+methods with structurally valid inputs will always return `'other'`.
 
 ### Intl.RelativeTimeFormat
 
-This API should not support the `zxx` locale.
+When the `zxx` locale is used with valid formatting options,
+the formatted relative time is an ISO 8601-2 duration
+with either a Plus Sign `+` (U+002B) or a Hyphen-Minus `-` (U+002D) as its first character,
+such as `+P2Y` (in 2 years), `-P1D` (yesterday), or `+PT10S` (in 10 seconds).
+
+Quarters are expressed in months.
 
 ### Intl.Segmenter
 
 When the `zxx` locale is used, [UAX #29](https://unicode.org/reports/tr29/) segmentation
 with extended grapheme clusters is used, without tailorings
 (See [issue #13](https://github.com/tc39/proposal-stable-formatting/issues/13)).
+
+### Array.prototype.toLocaleString
+
+When the `zxx` locale is used, array items are concatenated with a comma `,` (U+002C)
+as a separator.
+
+### String.prototype.toLocaleLowerCase & String.prototype.toLocaleUpperCase
+
+When the `zxx` locale is used, the string is converted to the appropriate case
+according to the CLDR root locale case mappings.
 
 ## Alternatives
 
