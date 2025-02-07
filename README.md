@@ -206,7 +206,7 @@ as a separator.
 ### String.prototype.toLocaleLowerCase & String.prototype.toLocaleUpperCase
 
 When the `zxx` locale is used, the string is converted to the appropriate case
-according to the CLDR root locale case mappings.
+using the Unicode Default Case Conversion algorithm.
 
 ## Alternatives
 
