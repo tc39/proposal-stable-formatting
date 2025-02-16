@@ -4,7 +4,13 @@ A TC39 proposal to bring stable Intl-inspired formatting options to ECMAScript.
 
 **Stage:** 1
 
-**Presentation**: [Slides](https://docs.google.com/presentation/d/1p1Xgywv1qfY54gnfHUM6PXQafqgf7wY98znxbolmP2c/edit?usp=sharing) for Stage 1 acceptance at September 2023 TC39 meeting
+**Presentations**:
+- Stage 1 (2023-09):
+  [Slides](https://docs.google.com/presentation/d/1p1Xgywv1qfY54gnfHUM6PXQafqgf7wY98znxbolmP2c/edit?usp=sharing),
+  [Notes](https://github.com/tc39/notes/blob/main/meetings/2023-09/september-27.md#stable-formatting-for-stage-1)
+- Stage 1 update (2025-02):
+  [PR #18](https://github.com/tc39/proposal-stable-formatting/pull/18),
+  [Slides](https://docs.google.com/presentation/d/14KQA1Gyy0reIyouHtzp5ofYRrcwRjkY6GajeknLWhg0/edit?usp=sharing)
 
 ## Motivation
 
