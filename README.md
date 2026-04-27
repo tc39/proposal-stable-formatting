@@ -10,7 +10,8 @@ A TC39 proposal to bring stable Intl-inspired formatting options to ECMAScript.
   [Notes](https://github.com/tc39/notes/blob/main/meetings/2023-09/september-27.md#stable-formatting-for-stage-1)
 - Stage 1 update (2025-02):
   [PR #18](https://github.com/tc39/proposal-stable-formatting/pull/18),
-  [Slides](https://docs.google.com/presentation/d/14KQA1Gyy0reIyouHtzp5ofYRrcwRjkY6GajeknLWhg0/edit?usp=sharing)
+  [Slides](https://docs.google.com/presentation/d/14KQA1Gyy0reIyouHtzp5ofYRrcwRjkY6GajeknLWhg0/edit?usp=sharing),
+  [Notes](https://github.com/tc39/notes/blob/main/meetings/2025-02/february-19.md#stable-formatting-update)
 
 ## Motivation
 
@@ -173,10 +174,6 @@ the output includes the numerical value followed by an appropriate SI prefix:
 - 10<sup>9</sup>: `G` (U+0047)
 - 10<sup>6</sup>: `M` (U+004D)
 - 10<sup>3</sup>: `k` (U+006B)
-- 10<sup>-3</sup>: `m` (U+006D)
-- 10<sup>-6</sup>: `μ` (U+03BC)
-- 10<sup>-9</sup>: `n` (U+006E)
-- 10<sup>-12</sup>: `p` (U+0070)
 
 The `compactDisplay` option is validated but ignored.
 
