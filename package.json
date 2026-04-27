@@ -1,0 +1,13 @@
+{
+  "name": "proposal-stable-formatting",
+  "private": true,
+  "dependencies": {
+    "@tc39/ecma262-biblio": "^2.2.3076",
+    "@tc39/ecma402-biblio": "^2.1.1215",
+    "ecmarkup": "^24.1.0"
+  },
+  "scripts": {
+    "build": "ecmarkup --lint-spec --load-biblio @tc39/ecma262-biblio --load-biblio @tc39/ecma402-biblio --strict --verbose spec.html dist/index.html",
+    "start": "ecmarkup --lint-spec --load-biblio @tc39/ecma262-biblio --load-biblio @tc39/ecma402-biblio --verbose --watch spec.html dist/index.html"
+  }
+}
