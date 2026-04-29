@@ -52,6 +52,11 @@ such as using ISO-8601 for date formatting.
 The "localized" output for `zxx` would avoid including actually localized text in its output,
 such as fully written-out unit names or the names of months.
 
+For the Intl APIs that take natural-language input as opposed to only producing natural-language output
+(Collator, Segementer, String.prototype.toLocale{Lower,Upper}Case),
+we cannot easily guarantee useful stable behaviour.
+The behaviour of these APIs is instead specified for the `und` (root) locale.
+
 ```js
 Intl.Collator.supportedLocalesOf(null) → ['zxx']
 
@@ -62,7 +67,7 @@ new Intl.DateTimeFormat('zxx').format(new Date()) === '2023-09-01'
 
 ### Intl.Collator
 
-When the `zxx` locale is used, [CLDR root collation](https://www.unicode.org/reports/tr35/tr35-collation.html#Root_Collation)
+When the `und` locale is used, [CLDR root collation](https://www.unicode.org/reports/tr35/tr35-collation.html#Root_Collation)
 is used, with unified ideographs ordered either by block and then by code point, or by radical-stroke
 (See [issue #13](https://github.com/tc39/proposal-stable-formatting/issues/13)).
 
@@ -197,7 +202,7 @@ Quarters are expressed in months.
 
 ### Intl.Segmenter
 
-When the `zxx` locale is used, [UAX #29](https://unicode.org/reports/tr29/) segmentation
+When the `und` locale is used, [UAX #29](https://unicode.org/reports/tr29/) segmentation
 with extended grapheme clusters is used, without tailorings
 (See [issue #13](https://github.com/tc39/proposal-stable-formatting/issues/13)).
 
@@ -208,7 +213,7 @@ as a separator.
 
 ### String.prototype.toLocaleLowerCase & String.prototype.toLocaleUpperCase
 
-When the `zxx` locale is used, the string is converted to the appropriate case
+When the `und` locale is used, the string is converted to the appropriate case
 using the Unicode Default Case Conversion algorithm.
 
 ## Alternatives
