@@ -2,7 +2,7 @@
 
 A TC39 proposal to bring stable Intl-inspired formatting options to ECMAScript.
 
-**Stage:** 1
+**Stage:** 2
 
 **Presentations**:
 - Stage 1 (2023-09):
