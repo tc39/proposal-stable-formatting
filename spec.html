@@ -404,6 +404,39 @@ contributors: Eemeli Aro
   </emu-clause>
 </emu-clause>
 
+<emu-clause id="locale-objects" number="15">
+  <h1>Locale Objects</h1>
+
+  <emu-clause id="sec-calendarsoflocale" type="implementation-defined abstract operation" number="5.9">
+    <h1>
+      CalendarsOfLocale (
+        _loc_: an Intl.Locale,
+      ): an Array
+    </h1>
+    <dl class="header">
+      <dt>description</dt>
+      <dd>The following algorithm refers to Locale data specified in <a href="https://unicode.org/reports/tr35/tr35-dates.html#Calendar_Preference_Data">Unicode Technical Standard #35 Part 4 Dates, Calendar Preference Data</a>.</dd>
+    </dl>
+    <emu-alg>
+      1. If _loc_.[[Calendar]] is not *undefined*, then
+        1. Return CreateArrayFromList(« _loc_.[[Calendar]] »).
+      1. Let _preference_ be RegionPreference(_loc_.[[Locale]]).
+      1. Let _region_ be _preference_.[[Region]].
+      1. Let _regionOverride_ be _preference_.[[RegionOverride]].
+      1. If _regionOverride_ is not *undefined* and calendar preference data for _regionOverride_ are available, then
+        1. Let _lookupRegion_ be _regionOverride_.
+      1. Else,
+        1. Let _lookupRegion_ be _region_.
+      1. <ins>If IsStableLocale(_loc_.[[Locale]]) is *true*, then</ins>
+        1. <ins>Let _list_ be « *"iso8601"* ».</ins>
+      1. <ins>Else,</ins>
+        1. Let _list_ be a List of unique calendar types in canonical form (<emu-xref href="#sec-calendar-types"></emu-xref>), sorted in descending preference of those in common use for date and time formatting in _lookupRegion_. The list is empty if no calendar preference data for _lookupRegion_ is available.
+        1. If _list_ is empty, set _list_ to « *"gregory"* ».
+      1. Return CreateArrayFromList(_list_).
+    </emu-alg>
+  </emu-clause>
+</emu-clause>
+
 <emu-clause id="numberformat-objects" number="16">
   <h1>NumberFormat Objects</h1>
 

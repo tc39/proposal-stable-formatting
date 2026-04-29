@@ -136,7 +136,8 @@ and the output is determined by the `style` option:
 
 ### Intl.Locale
 
-TBD
+With the `zxx` locale, all fields and accessors return their default/fallback values,
+except for `.getCalendars()`, which returns `['iso8601']` instead of `['gregory']`.
 
 ### Intl.NumberFormat
 
