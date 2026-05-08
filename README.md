@@ -55,21 +55,13 @@ such as fully written-out unit names or the names of months.
 For the Intl APIs that take natural-language input as opposed to only producing natural-language output
 (Collator, Segementer, String.prototype.toLocale{Lower,Upper}Case),
 we cannot easily guarantee useful stable behaviour.
-The behaviour of these APIs is instead specified for the `und` (root) locale.
+No `zxx` support is proposed for them at this time.
 
 ```js
-Intl.Collator.supportedLocalesOf(null) → ['zxx']
-
 new Intl.DateTimeFormat('zxx').format(new Date()) === '2023-09-01'
 
 (12345.67).toLocaleString(null) === '12345.67'
 ```
-
-### Intl.Collator
-
-When the `und` locale is used, [CLDR root collation](https://www.unicode.org/reports/tr35/tr35-collation.html#Root_Collation)
-is used, with unified ideographs ordered either by block and then by code point, or by radical-stroke
-(See [issue #13](https://github.com/tc39/proposal-stable-formatting/issues/13)).
 
 ### Intl.DateTimeFormat
 
@@ -200,21 +192,10 @@ such as `+P2Y` (in 2 years), `-P1D` (yesterday), or `+PT10S` (in 10 seconds).
 
 Quarters are expressed in months.
 
-### Intl.Segmenter
-
-When the `und` locale is used, [UAX #29](https://unicode.org/reports/tr29/) segmentation
-with extended grapheme clusters is used, without tailorings
-(See [issue #13](https://github.com/tc39/proposal-stable-formatting/issues/13)).
-
 ### Array.prototype.toLocaleString
 
 When the `zxx` locale is used, array items are concatenated with a comma `,` (U+002C)
 as a separator.
-
-### String.prototype.toLocaleLowerCase & String.prototype.toLocaleUpperCase
-
-When the `und` locale is used, the string is converted to the appropriate case
-using the Unicode Default Case Conversion algorithm.
 
 ## Alternatives
 
