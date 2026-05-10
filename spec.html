@@ -66,6 +66,117 @@ contributors: Eemeli Aro
       1. If _language_ is *"zxx"*, return *true*; else return *false*.
     </emu-alg>
   </emu-clause>
+
+  <emu-clause id="sec-issanctionedsingleunitidentifier" type="abstract operation" oldids="sec-issanctionedsimpleunitidentifier">
+    <h1>
+      IsSanctionedSingleUnitIdentifier (
+        _unitIdentifier_: a String,
+      ): a Boolean
+    </h1>
+    <dl class="header">
+      <dt>description</dt>
+      <dd>It verifies that the _unitIdentifier_ argument is among the single unit identifiers sanctioned in the current version of this specification, which are a subset of the Common Locale Data Repository <a href="https://github.com/unicode-org/cldr/blob/maint/maint-38/common/validity/unit.xml">release 38 unit validity data</a>; the list may grow over time. As discussed in <a href="https://unicode.org/reports/tr35/tr35-general.html#Unit_Identifiers">Unicode Technical Standard #35 Part 2 General, Section 6.2 Unit Identifiers</a>, a single unit identifier is a core unit identifier that is not composed of multiplication or division of other unit identifiers.</dd>
+    </dl>
+    <emu-alg>
+      1. If _unitIdentifier_ is listed in <ins>the Single Unit Identifier column of</ins> <emu-xref href="#table-sanctioned-single-unit-identifiers"></emu-xref> below, return *true*.
+      1. Else, return *false*.
+    </emu-alg>
+
+    <emu-table id="table-sanctioned-single-unit-identifiers" oldids="table-sanctioned-simple-unit-identifiers">
+      <emu-caption>Single units sanctioned for use in ECMAScript</emu-caption>
+      <table class="real-table">
+        <thead>
+          <tr>
+            <th>Single Unit Identifier</th>
+            <th><ins>Short Identifier</ins></th>
+          </tr>
+        </thead>
+        <tr><td>acre</td><td><ins>ac</ins></td></tr>
+        <tr><td>bit</td><td><ins>bit</ins></td></tr>
+        <tr><td>byte</td><td><ins>B</ins></td></tr>
+        <tr><td>celsius</td><td><ins>°C</ins></td></tr>
+        <tr><td>centimeter</td><td><ins>cm</ins></td></tr>
+        <tr><td>day</td><td><ins>d</ins></td></tr>
+        <tr><td>degree</td><td><ins>°</ins></td></tr>
+        <tr><td>fahrenheit</td><td><ins>°F</ins></td></tr>
+        <tr><td>fluid-ounce</td><td><ins>US fl oz</ins></td></tr>
+        <tr><td>foot</td><td><ins>ft</ins></td></tr>
+        <tr><td>gallon</td><td><ins>US gal</ins></td></tr>
+        <tr><td>gigabit</td><td><ins>Gbit</ins></td></tr>
+        <tr><td>gigabyte</td><td><ins>GB</ins></td></tr>
+        <tr><td>gram</td><td><ins>g</ins></td></tr>
+        <tr><td>hectare</td><td><ins>ha</ins></td></tr>
+        <tr><td>hour</td><td><ins>h</ins></td></tr>
+        <tr><td>inch</td><td><ins>in</ins></td></tr>
+        <tr><td>kilobit</td><td><ins>kbit</ins></td></tr>
+        <tr><td>kilobyte</td><td><ins>kB</ins></td></tr>
+        <tr><td>kilogram</td><td><ins>kg</ins></td></tr>
+        <tr><td>kilometer</td><td><ins>km</ins></td></tr>
+        <tr><td>liter</td><td><ins>L</ins></td></tr>
+        <tr><td>megabit</td><td><ins>Mbit</ins></td></tr>
+        <tr><td>megabyte</td><td><ins>MB</ins></td></tr>
+        <tr><td>meter</td><td><ins>m</ins></td></tr>
+        <tr><td>microsecond</td><td><ins>μs</ins></td></tr>
+        <tr><td>mile</td><td><ins>mi</ins></td></tr>
+        <tr><td>mile-scandinavian</td><td><ins>mil</ins></td></tr>
+        <tr><td>milliliter</td><td><ins>mL</ins></td></tr>
+        <tr><td>millimeter</td><td><ins>mm</ins></td></tr>
+        <tr><td>millisecond</td><td><ins>ms</ins></td></tr>
+        <tr><td>minute</td><td><ins><emu-not-ref>min</emu-not-ref></ins></td></tr>
+        <tr><td>month</td><td><ins>M</ins></td></tr>
+        <tr><td>nanosecond</td><td><ins>ns</ins></td></tr>
+        <tr><td>ounce</td><td><ins>oz</ins></td></tr>
+        <tr><td>percent</td><td><ins>%</ins></td></tr>
+        <tr><td>petabyte</td><td><ins>PB</ins></td></tr>
+        <tr><td>pound</td><td><ins>lb</ins></td></tr>
+        <tr><td>second</td><td><ins>s</ins></td></tr>
+        <tr><td>stone</td><td><ins>st</ins></td></tr>
+        <tr><td>terabit</td><td><ins>Tbit</ins></td></tr>
+        <tr><td>terabyte</td><td><ins>TB</ins></td></tr>
+        <tr><td>week</td><td><ins>W</ins></td></tr>
+        <tr><td>yard</td><td><ins>yd</ins></td></tr>
+        <tr><td>year</td><td><ins>Y</ins></td></tr>
+      </table>
+    </emu-table>
+  </emu-clause>
+
+  <emu-clause id="sec-availablecanonicalunits" type="abstract operation">
+    <h1>AvailableCanonicalUnits ( ): a List of Strings</h1>
+    <dl class="header">
+      <dt>description</dt>
+      <dd>The returned List is sorted according to lexicographic code unit order, and consists of the <del>unique values of simple unit identifiers listed in</del><ins>Single Unit Identifier values of</ins> every row of <emu-xref href="#table-sanctioned-single-unit-identifiers"></emu-xref>, except the header row.</dd>
+    </dl>
+  </emu-clause>
+
+  <emu-clause id="sec-formatstableunitidentifier" type="abstract operation">
+    <h1>
+      <ins>FormatStableUnitIdentifier (
+        _unitIdentifier_: a String,
+        _unitDisplay_: one of the String values *"short"*, *"narrow"*, or *"long"*
+      ): a String</ins>
+    </h1>
+    <dl class="header">
+      <dt>description</dt>
+      <dd>
+        It formats _unitIdentifier_ as a locale-independent string.
+      </dd>
+    </dl>
+
+    <emu-alg>
+      1. Assert: IsWellFormedUnitIdentifier(_unitIdentifier_) is *true*.
+      1. Let _i_ be StringIndexOf(_unitIdentifier_, *"-per-"*, 0).
+      1. If _i_ is ~not-found~, then
+        1. If _unitDisplay_ is *"long"*, return _unitIdentifier_.
+        1. Let _shortIdentifier_ be the value in the Short Identifier column of <emu-xref href="#table-sanctioned-single-unit-identifiers"></emu-xref> for the row where the value in the Single Unit Identifier column is _unitIdentifier_.
+        1. Return _shortIdentifier_.
+      1. Let _numerator_ be the substring of _unitIdentifier_ from 0 to _i_.
+      1. Let _denominator_ be the substring of _unitIdentifier_ from _i_ + 5.
+      1. If _unitDisplay_ is *"long"*, return the concatenation of _numerator_, *"/"*, and _denominator_.
+      1. Let _shortNumerator_ be the value in the Short Identifier column of <emu-xref href="#table-sanctioned-single-unit-identifiers"></emu-xref> for the row where the value in the Single Unit Identifier column is _numerator_.
+      1. Let _shortDenominator_ be the value in the Short Identifier column of <emu-xref href="#table-sanctioned-single-unit-identifiers"></emu-xref> for the row where the value in the Single Unit Identifier column is _denominator_.
+      1. Return the concatenation of _shortNumerator_, *"/"*, and _shortDenominator_.
+    </emu-alg>
+  </emu-clause>
 </emu-clause>
 
 <emu-clause id="locale-and-parameter-negotiation" number="9">
@@ -702,7 +813,7 @@ contributors: Eemeli Aro
           1. Else if _p_ is *"unitSuffix"* and _numberFormat_.[[Style]] is *"unit"*, then
             1. Let _unit_ be _numberFormat_.[[Unit]].
             1. Let _unitDisplay_ be _numberFormat_.[[UnitDisplay]].
-            1. Let _mu_ be an ILD String value representing _unit_ after _x_ in _unitDisplay_ form, which may depend on _x_ in languages having different plural forms. <ins>For the *"zxx"* locale, this is the _unit_ String with any *"-per-"* infix replaced by *"/"*.</ins>
+            1. <del>Let</del><ins>If IsStableLocale(_numberFormat_.[[Locale]]), let _mu_ be FormatStableUnitIdentifier(_unit_, _unitDisplay_); else let</ins> _mu_ be an ILD String value representing _unit_ after _x_ in _unitDisplay_ form, which may depend on _x_ in languages having different plural forms.
             1. Append the Record { [[Type]]: *"unit"*, [[Value]]: _mu_ } to _result_.
           1. Else if _p_ is *"currencyCode"* and _numberFormat_.[[Style]] is *"currency"*, then
             1. Let _currency_ be _numberFormat_.[[Currency]].
