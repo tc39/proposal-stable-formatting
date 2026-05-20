@@ -123,8 +123,9 @@ depending on the `fallback` option.
 ### Intl.DurationFormat
 
 When the `zxx` locale is used with valid formatting options,
-the formatted duration is an ISO 8601-2 duration,
-such as `P2Y` (2 years), `PT2H30M` (2 hours and 30 minutes), or `P5DT0.001S` (5 days and 1 millisecond).
+the formatted duration is a concatenation of `'{number} {unit}'` entries separated by `', '`,
+such as `2 year`, `2 hour, 30 minute`, or `5 day, 1 millisecond`,
+or time values separated by `:` with `style: 'digital'`.
 
 ### Intl.ListFormat
 
