@@ -2,7 +2,11 @@
 
 A TC39 proposal to bring stable Intl-inspired formatting options to ECMAScript.
 
-**Stage:** 1
+**Stage:** 2
+
+**Champion**: [Eemeli Aro](https://github.com/eemeli)
+
+**Reviewers**: [Richard Gibson](https://github.com/gibson042), [Dan Minor](https://github.com/dminor)
 
 **Presentations**:
 - Stage 1 (2023-09):
@@ -12,6 +16,8 @@ A TC39 proposal to bring stable Intl-inspired formatting options to ECMAScript.
   [PR #18](https://github.com/tc39/proposal-stable-formatting/pull/18),
   [Slides](https://docs.google.com/presentation/d/14KQA1Gyy0reIyouHtzp5ofYRrcwRjkY6GajeknLWhg0/edit?usp=sharing),
   [Notes](https://github.com/tc39/notes/blob/main/meetings/2025-02/february-19.md#stable-formatting-update)
+- Stage 2 (2026-05):
+  [Slides](https://docs.google.com/presentation/d/1Vnt2-ejFMpk3NstM2DS0TtSRIoDqm9jqE4siiuMe4qE/edit?usp=sharing)
 
 ## Motivation
 
