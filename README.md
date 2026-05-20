@@ -167,8 +167,15 @@ the output is determined by the `unitDisplay` option:
 
 The "long unit identifier" is the `unit` option value.
 The "short unit identifier" is a locale-independent string derived from the `unit` option value
-which will need to be explicitly defined from SI units and otherwise,
-with e.g. `l` for `litre` and `TB` for `terabyte`.
+with e.g. `L` for `liter` and `TB` for `terabyte`.
+The short unit identifiers are sourced from the following external authorities (in preference order):
+- The International System of Units (the default authority, for all available units)
+- ISO 8601-1:2019 Date and time — Representations for information interchange (`month`, `week`, `year`)
+- ISO 80000 Quantities and units (`fahrenheit`, `bit`, `byte`, and the prefixed variants of the latter two)
+- NIST Handbook 44 (US customary units)
+- The Swedish Dictionary published by the Swedish Academy (`mile-scandinavian`)
+- Oxford English Dictionary (`stone`)
+
 Compound units are formed by replacing the `-per-` with a solidus `/` (U+002F)
 and by mapping the unit parts separately to their short unit identifiers.
 
