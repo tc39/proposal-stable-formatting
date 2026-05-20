@@ -38,13 +38,13 @@ is to [use Swedish as the locale](https://stackoverflow.com/a/58633686).
 
 ## Proposed Solution
 
-Define in ECMA-402 the behaviour of each of the formatters for the `zxx` null locale.
+Define in ECMA-402 the behaviour of each of the formatters for the `zxx` locale.
 This locale identifier (which stands for for "no linguistic content; not applicable")
 is a valid BCP 47 primary language tag defined in ISO 639.2
 but its behaviour is not otherwise well defined.
 
 For ease of use,
-Intl formatters would accept `null` as an alias for the canonical `"zxx"` identifier.
+the value property `Intl.STABLE` is added with the string value `"zxx"`.
 
 Wherever possible, the `zxx` locale would use well-defined standardized behaviour,
 such as using ISO-8601 for date formatting.
@@ -60,7 +60,7 @@ No `zxx` support is proposed for them at this time.
 ```js
 new Intl.DateTimeFormat('zxx').format(new Date()) === '2023-09-01'
 
-(12345.67).toLocaleString(null) === '12345.67'
+(12345.67).toLocaleString(Intl.STABLE) === '12345.67'
 ```
 
 ### Intl.DateTimeFormat
@@ -82,7 +82,7 @@ e.g. `2006-01-02`, `15:04:05`, `2006-01-02T15:04:05.999+01:00[Europe/Paris]`.
 Only numerical representations of time and date values are used, as in:
 
 ```js
-const dtf = new Intl.DateTimeFormat(null, { month: "long" });
+const dtf = new Intl.DateTimeFormat(Intl.STABLE, { month: "long" });
 dtf.format(new Date("2006-01-02")) === "1";
 ```
 
@@ -120,8 +120,9 @@ depending on the `fallback` option.
 ### Intl.DurationFormat
 
 When the `zxx` locale is used with valid formatting options,
-the formatted duration is an ISO 8601-2 duration,
-such as `P2Y` (2 years), `PT2H30M` (2 hours and 30 minutes), or `P5DT0.001S` (5 days and 1 millisecond).
+the formatted duration is a concatenation of `'{number} {unit}'` entries separated by `', '`,
+such as `2 year`, `2 hour, 30 minute`, or `5 day, 1 millisecond`,
+or time values separated by `:` with `style: 'digital'`.
 
 ### Intl.ListFormat
 
@@ -133,7 +134,8 @@ and the output is determined by the `style` option:
 
 ### Intl.Locale
 
-TBD
+With the `zxx` locale, all fields and accessors return their default/fallback values,
+except for `.getCalendars()`, which returns `['iso8601']` instead of `['gregory']`.
 
 ### Intl.NumberFormat
 
