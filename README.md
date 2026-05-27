@@ -36,6 +36,10 @@ Recent examples are available from
 [this presentation](https://docs.google.com/presentation/d/1KuIOSDQRliqCT3x3WX9Bg9H3hndfhAcH2G0aNoBKq18/edit#slide=id.p) from
 [June 2023 TC39-TG2](https://github.com/tc39/ecma402/blob/master/meetings/notes-2023-06-01.md#how-to-prevent-misuse-of-localized-strings).
 
+The lack of stability also makes it challenging to test `Intl` APIs
+or websites and applications that rely on `Intl` APIs,
+as implementation differences can produce different results in different environments.
+
 Separately, sometimes it is desirable to format values for an international audience,
 or for other reasons use formats that are not tied to a specific locale.
 The `Intl` formatters do not currently support this well.
